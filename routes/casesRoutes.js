@@ -11,11 +11,13 @@ const {
   updateIsHoldCase,
   getCasesByMonth,
   getCaseSearch,
-  updateIsUrgentCase
+  updateIsUrgentCase,
+  getCounter,
 } = require("../controllers/CaseController");
 
 // Get All Cases
 router.get("/", getAllCases);
+router.get("/counter", getCounter);
 router.get("/cases-by-month", getCasesByMonth);
 router.get("/search", getCaseSearch);
 // Get Single Case

@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { validationResult } = require("express-validator");
 const SEARCH_FIELDS = require("../enum/searchFieldEnum");
 
+
 // Get All Cases
 const getAllCases = async (req, res) => {
   // const cases = await Case.find({});
@@ -15,6 +16,21 @@ const getAllCases = async (req, res) => {
     res.status(responsesStatus.NotFound).json({ error: "Not Found" });
   }
 };
+
+const getCounter = async (req, res) => {
+  try {
+    const data = await CounterCase.find(); // Fetch all documents
+
+    // const transformedData = data.map(transformFields); // Convert only _id, createdAt, updatedAt
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching data', error });
+  }
+};
+
+
+
 
 // const getCasesByMonth = async (req, res) => {
 //   let { year, month } = req.query; // Expecting year and month as query parameters
@@ -43,6 +59,118 @@ const getAllCases = async (req, res) => {
 //     res.status(responsesStatus.NotFound).json({ error: "Not Found" });
 //   }
 // };
+// const getCasesByMonth = async (req, res) => {
+//   let { year, month, startDate, endDate } = req.query; // Expecting year, month, startDate, and endDate as query parameters
+
+//   // Default to current date if no year and month are provided
+//   const currentDate = new Date();
+//   year = year || currentDate.getFullYear();
+//   month = month || currentDate.getMonth() + 1; // getMonth() returns 0-11, so add 1 to match the typical month numbering
+
+//   // If startDate and endDate are provided, use them as the date range
+//   if (startDate && endDate) {
+//     try {
+//       // Ensure the provided dates are in proper format (YYYY-MM-DD)
+//       const parsedStartDate = new Date(startDate);
+//       const parsedEndDate = new Date(endDate);
+
+//       if (isNaN(parsedStartDate) || isNaN(parsedEndDate)) {
+//         throw new Error("Invalid date format");
+//       }
+
+//       // Set start time to the beginning of the day (00:00:00)
+//       parsedStartDate.setHours(0, 0, 0, 0);
+
+//       // Set end time to just before midnight of the next day (23:59:59)
+//       parsedEndDate.setHours(23, 59, 59, 999);
+
+//       // Fetch cases between the custom date range
+//       const cases = await Case.find({
+//         createdAt: { $gte: parsedStartDate, $lt: parsedEndDate },
+//       }).sort({ createdAt: -1 });
+//       // Holding Cases In All Cases
+//       const holdingCases = await Case.find({
+//         isHold: true, // Only fetch cases where isHold is true
+//         createdAt: { $lt: parsedEndDate }, // Optionally filter by createdAt
+//       }).sort({ createdAt: -1 });
+//       // Urgent Cases In All Cases
+//       const urgentCases = await Case.find({
+//         isUrgent: true, // Only fetch cases where isHold is true
+//         createdAt: { $lt: parsedEndDate }, // Optionally filter by createdAt
+//       }).sort({ createdAt: -1 });
+//           // Study Cases In All Cases
+//     const studyCases = await Case.find({
+//       isStudy: true, // Only fetch cases where isHold is true
+//     }).sort({ createdAt: -1 });
+//         // Redo Cases In All Cases
+//         const redoCases = await Case.find({
+//           isRedo: true, // Only fetch cases where isHold is true
+//         }).sort({ createdAt: -1 });
+//         // Respond with the filtered cases
+//       return res.status(responsesStatus.OK).json({
+//         cases,
+//         holdingCases: holdingCases,
+//         urgentCases: urgentCases,
+//         studyCases: studyCases,
+//         redoCases:redoCases,
+//         count: cases.length,
+//       });
+//     } catch (error) {
+//       console.error("Invalid date format:", error);
+//       return res
+//         .status(responsesStatus.BadRequest)
+//         .json({ error: "Invalid date format" });
+//     }
+//   }
+
+//   // Default behavior: Get cases for a specific month and year
+//   try {
+//     // Create start date for the 1st day of the month at 00:00:00
+//     const startOfMonth = new Date(year, month - 3, 1); // month is 0-indexed, so subtract 1
+//     startOfMonth.setHours(0, 0, 0, 0); // Start of the day
+
+//     // Create end date for the last day of the month at 23:59:59.999
+//     const endOfMonth = new Date(year, month , 0); // Get last day of the month
+//     endOfMonth.setHours(23, 59, 59, 999); // End of the day
+
+//     // Retrieve cases created within the specified month range
+//     const cases = await Case.find({
+//       createdAt: { $gte: startOfMonth, $lt: endOfMonth },
+//     }).sort({ createdAt: -1 });
+//     console.log('cases',cases)
+//     console.log('startOfMonth',startOfMonth)
+//     console.log('endOfMonth',endOfMonth)
+
+//     const holdingCases = await Case.find({
+//       isHold: true, // Only fetch cases where isHold is true
+//     }).sort({ createdAt: -1 });
+//     // Urgent Cases In All Cases
+//     const urgentCases = await Case.find({
+//       isUrgent: true, // Only fetch cases where isHold is true
+//     }).sort({ createdAt: -1 });
+//     // Study Cases In All Cases
+//     const studyCases = await Case.find({
+//       isStudy: true, // Only fetch cases where isHold is true
+//     }).sort({ createdAt: -1 });
+//     // Redo Cases In All Cases
+//     const redoCases = await Case.find({
+//       isRedo: true, // Only fetch cases where isHold is true
+//     }).sort({ createdAt: -1 });
+//     // Respond with the filtered cases
+//     return res.status(responsesStatus.OK).json({
+//       cases,
+//       holdingCases: holdingCases,
+//       urgentCases: urgentCases,
+//       studyCases: studyCases,
+//       redoCases: redoCases,
+//       count: cases.length,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(responsesStatus.NotFound).json({ error: "Not Found" });
+//   }
+// };
+
 const getCasesByMonth = async (req, res) => {
   let { year, month, startDate, endDate } = req.query; // Expecting year, month, startDate, and endDate as query parameters
 
@@ -106,7 +234,6 @@ const getCasesByMonth = async (req, res) => {
         .json({ error: "Invalid date format" });
     }
   }
-
   // Default behavior: Get cases for a specific month and year
   try {
     // Create start date for the 1st day of the month at 00:00:00
@@ -121,6 +248,8 @@ const getCasesByMonth = async (req, res) => {
     const cases = await Case.find({
       createdAt: { $gte: startOfMonth, $lt: endOfMonth },
     }).sort({ createdAt: -1 });
+
+
 
     const holdingCases = await Case.find({
       isHold: true, // Only fetch cases where isHold is true
@@ -151,6 +280,8 @@ const getCasesByMonth = async (req, res) => {
     res.status(responsesStatus.NotFound).json({ error: "Not Found" });
   }
 };
+
+
 
 const getAllCasesByDoctor = async (req, res) => {
   const { id } = req.params;
@@ -485,4 +616,5 @@ module.exports = {
   getCasesByMonth,
   getCaseSearch,
   updateIsUrgentCase,
+  getCounter
 };
