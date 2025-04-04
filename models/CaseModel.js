@@ -136,7 +136,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
       },
@@ -146,7 +146,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
       },
@@ -156,7 +156,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
         obj: {},
@@ -167,7 +167,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
       },
@@ -177,7 +177,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
       },
@@ -187,7 +187,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
       },
@@ -197,7 +197,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
       },
@@ -207,7 +207,7 @@ const CaseSchema = new Schema(
       namePhase: String,
       actions: Array,
       status: {
-        isStart: { type: Boolean, default: false },
+        isStart: { type: Boolean, default: true },
         isPause: { type: Boolean, default: false },
         isEnd: { type: Boolean, default: false },
         obj: Object,
