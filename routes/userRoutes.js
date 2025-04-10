@@ -8,7 +8,6 @@ const {
   createUser,
   deleteUser,
   updateUser,
-  loginUser,
   changePassword,
   getCasesByUser,
   getCasesAllByUser,
